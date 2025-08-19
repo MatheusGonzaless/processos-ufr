@@ -1,74 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <title>Processos Bizagi - UFR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Processos UFR - Fluxos Bizagi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f2f5;
+      background: #f5f7fa;
       margin: 0;
       padding: 0;
       color: #333;
     }
     header {
-      background: #003366;
-      color: white;
-      padding: 20px;
+      background: #0D6AB0;
+      color: #fff;
       text-align: center;
+      padding: 2rem 1rem;
     }
     header h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 2rem;
     }
     .container {
-      max-width: 900px;
-      margin: 30px auto;
-      padding: 0 15px;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
     }
-    .link-list {
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section h2 {
+      border-left: 5px solid #0D6AB0;
+      padding-left: 10px;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .links {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
     }
-    .link-item {
-      background: white;
-      border: 2px solid #003366;
+    .item-link {
+      display: block;       /* Faz o link ocupar toda a largura */
+      background: #fff;
+      padding: 1rem;
       border-radius: 8px;
-      padding: 20px;
-      flex: 1 1 250px;
-      text-align: center;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: #003366;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      color: #0D6AB0;
       font-weight: bold;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
     }
-    .link-item:hover {
-      background: #003366;
-      color: white;
+    .item-link:hover {
       transform: translateY(-3px);
-    }
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 20px;
-      }
-      .link-item {
-        flex: 1 1 100%;
-      }
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      background: #f0f6ff;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Processos Bizagi - Universidade Federal de Rondonópolis</h1>
+    <h1>Fluxos Bizagi - Processos UFR</h1>
+    <p>Selecione abaixo o fluxo desejado</p>
   </header>
-  <div class="container">
-    <div class="link-list">
-      <a class="link-item" href="Processos-PROPLAD/">Processos PROPLAD</a>
-      <a class="link-item" href="Solicitacao-de-recursos-PROAP/">Solicitação de recursos PROAP</a>
-    </div>
-  </div>
+
+  <div class="container" id="conteudo"></div>
+
+  <script>
+    const fluxos = {
+      "PROEG": [
+        { nome: "PADD", url: "https://processos.ufr.edu.br/PROEG/PROEG-PADD/index.html#list" },
+        { nome: "PEPEI", url: "https://processos.ufr.edu.br/PROEG/PROEG-PEPEI/index.html#list" },
+        { nome: "PIM", url: "https://processos.ufr.edu.br/PROEG/PROEG-PIM/index.html#list" }
+      ],
+      "PROEX": [
+        { nome: "Ações de Extensão", url: "https://processos.ufr.edu.br/PROEX/PROEX-acoes-de-extensoes/index.html#list" }
+      ],
+      "OUVIDORIA": [
+        { nome: "Denúncia", url: "https://processos.ufr.edu.br/OUVIDORIA/Ouvidoria-Denuncia/index.html#list" },
+        { nome: "Elogio", url: "https://processos.ufr.edu.br/OUVIDORIA/Ouvidoria-Elogio/index.html#list" },
+        { nome: "Providências", url: "https://processos.ufr.edu.br/OUVIDORIA/Ouvidoria-Providencias/index.html#list" },
+        { nome: "Reclamação", url: "https://processos.ufr.edu.br/OUVIDORIA/Ouvidoria-Reclamacao/index.html#list" },
+        { nome: "Simplificação", url: "https://processos.ufr.edu.br/OUVIDORIA/Ouvidoria-Simplificacao/index.html#list" },
+        { nome: "Sugestão", url: "https://processos.ufr.edu.br/OUVIDORIA/Ouvidoria-Sugestao/index.html#list" }
+      ],
+      "SECRI": [
+        { nome: "Auxílio Pedagógico Idiomas", url: "https://processos.ufr.edu.br/SECRI/SECRI-Auxilio-Pedagogico-Idiomas/index.html#list" }
+      ]
+    };
+
+    const container = document.getElementById("conteudo");
+
+    for (let setor in fluxos) {
+      let section = document.createElement("div");
+      section.classList.add("section");
+
+      let titulo = document.createElement("h2");
+      titulo.textContent = setor;
+      section.appendChild(titulo);
+
+      let lista = document.createElement("div");
+      lista.classList.add("links");
+
+      fluxos[setor].forEach(f => {
+        let link = document.createElement("a");
+        link.href = f.url;
+        link.target = "_blank";
+        link.textContent = f.nome;
+        link.classList.add("item-link");
+        lista.appendChild(link);
+      });
+
+      section.appendChild(lista);
+      container.appendChild(section);
+    }
+  </script>
 </body>
 </html>
